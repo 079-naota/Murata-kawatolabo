@@ -1,0 +1,24 @@
+# config.yaml
+device:
+  id: "test_sensor_01"
+
+monitoring:
+  interval_sec: 10          # テスト用に10秒周期に設定（本番は60秒等を推奨）
+  db_path: "data/measurements.db"
+
+threshold:
+  temp_lower: 24.0          # テスト用にわざとアラートが出やすい狭い範囲に設定
+  temp_upper: 26.0
+  humi_lower: 45.0
+  humi_upper: 55.0
+
+trend:
+  enabled: true
+  window_min: 10
+  slope_limit: 0.5
+
+alert:
+  cooldown_sec: 60          # 60秒間は同じアラートを再送しない
+
+teams:
+  webhook_url: "https://default72fe835d5e9545128ae0a7b38af25f.c8.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/996479e405a94e5ba800793e42998593/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YKr0iydSqi2y_o7ksJZQdRX70MbSsb9ltyI_5k1PBAc"
