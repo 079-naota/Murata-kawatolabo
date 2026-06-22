@@ -2,3 +2,5 @@
 config.yaml
 .venv/
 __pycache__/
+*.pyc
+test_step3.py
