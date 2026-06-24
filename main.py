@@ -59,11 +59,11 @@ def main():
             valid_alerts = alert_mgr.filter(alerts)
             
             if len(alerts) > 0 and len(valid_alerts) == 0:
-                print("  -> ⚠️ 異常を検知しましたが、クールダウン中のため通知をスキップしました。")
+                print("  -> 異常を検知しましたが、スパム防止のため通知をスキップしました。")
             
             # 6. アラートの通知とDB記録
             for alert in valid_alerts:
-                print(f"  -> 🚨 通知送信中: {alert.metric} {alert.direction}")
+                print(f"  -> 通知送信中: {alert.metric} {alert.direction}")
                 notifier.send(alert)
                 storage.save_alert(alert)
                 
