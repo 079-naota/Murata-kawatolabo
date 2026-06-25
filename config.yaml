@@ -1,14 +1,14 @@
 # config.yaml
 device:
-  id: "test_sensor_01"
+  id: "52AA1F10"
 
 monitoring:
-  interval_sec: 10          # テスト用に10秒周期に設定（本番は60秒等を推奨）
+  interval_sec: 30          
   db_path: "data/measurements.db"
 
 threshold:
-  temp_lower: 24.0          # テスト用にわざとアラートが出やすい狭い範囲に設定
-  temp_upper: 26.0
+  temp_lower: 12.0          # テスト用にわざとアラートが出やすい狭い範囲に設定
+  temp_upper: 20.0
   humi_lower: 45.0
   humi_upper: 55.0
 
