@@ -7,6 +7,8 @@ from storage.sqlite_storage import SQLiteStorage
 from monitoring.threshold_checker import ThresholdChecker
 from notifiers.teams_notifier import TeamsNotifier
 from core.alert_manager import AlertManager
+from monitoring.trend_analyzer import TrendAnalyzer
+
 
 def load_config(path: str) -> dict:
     """YAML設定ファイルを読み込む"""
@@ -34,6 +36,7 @@ def main():
     device = DummyDevice(config['device']['id'])
     storage = SQLiteStorage(config['monitoring']['db_path'])
     checker = ThresholdChecker()
+    analyzer = TrendAnalyzer()
     notifier = TeamsNotifier(config['teams']['webhook_url'])
     alert_mgr = AlertManager(threshold_conf.alert_cooldown_sec)
 
@@ -54,7 +57,10 @@ def main():
             alerts = checker.check(data, threshold_conf)
             
             # 4. （※ここに後で傾向監視（トレンド分析）が追加されます）
-            
+            history = storage.get_recent_measurements(data.device_id, threshold_conf.trend_window_min)
+            trend_alerts = analyzer.analyze(history, threshold_conf)
+            alerts.extend(trend_alerts)
+
             # 5. クールダウンによる重複通知のフィルタリング
             valid_alerts = alert_mgr.filter(alerts)
             
